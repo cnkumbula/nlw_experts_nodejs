@@ -1,8 +1,10 @@
 import fastify from 'fastify'
 import cookie from '@fastify/cookie'
+import websocket from '@fastify/websocket'
 import { createPool } from '../routes/createPoll'
 import { getPool } from '../routes/getPoll'
 import { voteOnPoll } from '../routes/voteOnPoll'
+import { pollResults } from './ws/poll-results'
 
 const app = fastify()
 
@@ -12,9 +14,12 @@ app.register(cookie,{
  // options for parsing cookies
 } )
 
+app.register(websocket)
+
 app.register(createPool)
 app.register(getPool)
 app.register(voteOnPoll)
+app.register(pollResults)
 
 
 
